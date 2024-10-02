@@ -16,7 +16,7 @@ func LoadConfig(path string) (config Config, err error) {
 	viper.SetConfigName("app")
 	viper.SetConfigType("env")
 
-	viper.AutomaticEnv() // overrides app.env config variables with the set environment variables if any
+	viper.AutomaticEnv() // overrides app.env config variables with the explicitly set environment variables if any
 
 	err = viper.ReadInConfig()
 	if err != nil {
