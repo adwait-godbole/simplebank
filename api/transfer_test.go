@@ -212,7 +212,7 @@ func TestTransferAPI(t *testing.T) {
 			require.NoError(t, err)
 
 			// send request
-			url := "/transfers"
+			url := "/transfer"
 			request, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(data))
 			require.NoError(t, err)
 
