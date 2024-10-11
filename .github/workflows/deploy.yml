@@ -1,11 +1,16 @@
-name: Deploy to production
+name: Deploy to Production
 
 on:
   workflow_call:
+    secrets:
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
 
 jobs:
   build:
-    name: Build image
+    name: Build Image
     runs-on: ubuntu-latest
 
     steps:
