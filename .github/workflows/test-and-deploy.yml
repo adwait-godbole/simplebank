@@ -49,13 +49,16 @@ jobs:
       - name: Test
         run: make test
 
-  aws-config:
-    name: Configure AWS & ECR Login
+  deploy:
+    name: Deploy
     needs: test
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -67,21 +70,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v2
 
-    outputs:
-      ecr-registry: ${{ steps.login-ecr.outputs.registry }}
-
-  deploy:
-    name: Build, Tag, and Push to ECR
-    needs: aws-config
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v4
-
       - name: Build, tag, and push docker image to Amazon ECR
         env:
-          ECR_REGISTRY: ${{ needs.aws-config.outputs.ecr-registry }}
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: gobank
           IMAGE_TAG: ${{ github.sha }}
         run: |
