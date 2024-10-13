@@ -16,6 +16,10 @@ COPY start.sh .
 COPY wait-for.sh .
 COPY db/migration ./migration
 
+# Make sure scripts are executable
+RUN chmod +x /app/start.sh
+RUN chmod +x /app/wait-for.sh
+
 EXPOSE 8080
 
 # Both of the below "WILL" not required "IF" our docker-compose file is overwriting them.
