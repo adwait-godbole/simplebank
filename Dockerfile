@@ -18,6 +18,6 @@ COPY db/migration ./migration
 
 EXPOSE 8080
 
-# Both of the below are not required because our docker-compose file is overwriting them.
-# CMD [ "/app/main" ]
-# ENTRYPOINT [ "/app/start.sh" ]
+# Both of the below "WILL" not required "IF" our docker-compose file is overwriting them.
+CMD [ "/app/main" ]
+ENTRYPOINT [ "/app/start.sh" ]
